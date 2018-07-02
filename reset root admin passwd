@@ -1,0 +1,16 @@
+# 重置root管理员密码
+
+os: rhel/centos
+
+- 重启系统主机出现引导界面时按e键进入内核编辑界面
+  Linux16参数行的末尾加上:rd.break参数，按ctrl+x组合键来运行修改过的内核程序
+  大约30秒后进入到系统的紧急救援模式，如下图:
+  > mount -o remount,rw /sysroot
+  > chroot /sysroot
+  > passwd
+  > *****
+  > touch /.autorelabel
+  > exit
+  > reboot
+  
+  
