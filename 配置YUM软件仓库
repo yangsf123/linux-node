@@ -1,0 +1,16 @@
+# 配置YUM软件仓库
+
+Yum软件仓库的作用是为了进一步简化RPM管理软件的难度以及自动分析所需软件包及其依赖关系的技术
+
+搭建并配置Yum 软件仓库的大致步骤：
+1.进入到/etc/yum.repos.d/目录中（因为该目录存放着Yum软件仓库的配置文件）
+> cd /etc/yum.repos.d/
+2.使用Vim编辑器创建一个名为rhel7.repo的新配置文件（文件名称可以随意取，后缀必须是.repo），逐项写入下面加粗的配置参数并保存退出
+> [rhel-media] # Yum软件仓库的唯一标识符，避免与其他仓库冲突
+> name=linuxprobe # Yum软件仓库的名称描述，易于识别仓库用处
+> baseurl=file:///media/cdrom # 提供的方式包括FTP(ftp://...)、HTTP(http://..)、本地（file:///..）
+> enabled=1 # 设置此源是否可用，1为可用，0为禁用
+> gpgcheck=1 # 设置此源是否校验文件，1为校验，0为不校验
+> gpgkey=file:///media/cdrom/RPM-GPG-KEY-redhat-release # 若上面参数开启校验，那么请指定公钥文件地址
+3.按配置参数的路径挂载光盘，并把光盘挂载信息写入到/etc/fstab文件中
+4.使用“yum install httpd -y”命令检查Yum软件仓库是否已经可用
